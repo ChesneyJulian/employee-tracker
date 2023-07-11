@@ -27,18 +27,27 @@ function runCommandLine(){
     prompt(queryOptions).then((answers) => {
     handleQuery(answers);
 })
-}
+};
+
+function handleResults (err, results) {
+    if (err) {
+        console.error(err);
+    } else {
+        console.table(results);
+        runCommandLine();
+    }
+};
 
 function handleQuery(answers) {
     if (answers.query === 'View All Departments') {
         db.query('SELECT * FROM departments', (err, results) => {
-            if (err) {
-                console.error(err);
-            } else {
-                console.table(results);
-                runCommandLine();
-            }
-        })
-    }
-}
+            handleResults(err, results);
+            });      
+    } else if (answers.query === 'View All Roles') { 
+        db.query('SELECT * FROM roles', (err, results) => {
+            handleResults(err, results);
+        });
+    };
+};
+
 runCommandLine();
