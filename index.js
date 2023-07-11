@@ -16,7 +16,9 @@ const queryOptions =[
         name: 'query',
         message: 'Select an Option',
         choices: [
-            'View All Departments'
+            'View All Departments', 
+            'View All Roles', 
+            'View All Employees'
         ]
     }
 ];
