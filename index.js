@@ -10,24 +10,33 @@ const db = mysql.createConnection({
 );
 
 const prompt = inquirer.createPromptModule();
-const queryOptions = {
-    type: 'rawlist',
-    name: 'query',
-    message: 'Select an Option',
-    choices: [
-        'View All Departments'
-    ]
-};
+const queryOptions =[
+        {
+        type: 'list',
+        name: 'query',
+        message: 'Select an Option',
+        choices: [
+            'View All Departments'
+        ]
+    }
+];
 
-prompt(queryOptions).then((answers) => {
-    console.log(answers.query);
+function runCommandLine(){
+    prompt(queryOptions).then((answers) => {
+    handleQuery(answers);
+})
+}
+
+function handleQuery(answers) {
     if (answers.query === 'View All Departments') {
         db.query('SELECT * FROM departments', (err, results) => {
             if (err) {
                 console.error(err);
             } else {
                 console.table(results);
+                runCommandLine();
             }
         })
     }
-})
+}
+runCommandLine();
