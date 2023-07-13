@@ -29,6 +29,22 @@ function runCommandLine(){
 })
 };
 
+function handleQuery(answers) {
+    if (answers.query === 'View All Departments') {
+        db.query(`SELECT * FROM departments`, (err, results) => {
+            handleResults(err, results);
+            });      
+    } else if (answers.query === 'View All Roles') { 
+        db.query(`SELECT * FROM roles`, (err, results) => {
+            handleResults(err, results);
+        });
+    } else if (answers.query === 'View All Employees') {
+        db.query(`SELECT * FROM employees`, (err, results) => {
+            handleResults(err, results);
+        });
+    };
+};
+
 function handleResults (err, results) {
     if (err) {
         console.error(err);
@@ -36,18 +52,6 @@ function handleResults (err, results) {
         console.table(results);
         runCommandLine();
     }
-};
-
-function handleQuery(answers) {
-    if (answers.query === 'View All Departments') {
-        db.query('SELECT * FROM departments', (err, results) => {
-            handleResults(err, results);
-            });      
-    } else if (answers.query === 'View All Roles') { 
-        db.query('SELECT * FROM roles', (err, results) => {
-            handleResults(err, results);
-        });
-    };
 };
 
 runCommandLine();
