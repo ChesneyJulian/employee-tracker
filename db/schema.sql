@@ -5,14 +5,14 @@ USE employee_db;
 /* create table for departments with id as primary key and name */
 CREATE TABLE departments (
     id INT NOT NULL AUTO_INCREMENT,
-    department_name VARCHAR(30),
+    department_name VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT,
     role_name VARCHAR(30),
-    salary INT NOT NULL,
+    salary DECIMAL,
     department_id INT,
     PRIMARY KEY (id),
     FOREIGN KEY (department_id)
