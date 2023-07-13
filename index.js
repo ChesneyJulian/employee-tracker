@@ -39,7 +39,7 @@ function handleQuery(answers) {
             handleResults(err, results);
         });
     } else if (answers.query === 'View All Employees') {
-        db.query(`SELECT * FROM employees`, (err, results) => {
+        db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.role_name AS title, departments.department_name AS department, roles.salary AS salary, manager.first_name as manager FROM employees employee LEFT JOIN employees manager ON manager.id = employee.manager_id LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id;`, (err, results) => {
             handleResults(err, results);
         });
     };
