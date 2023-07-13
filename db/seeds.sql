@@ -5,7 +5,7 @@ INSERT INTO departments (department_name) VALUES
     ('Customer Service'), 
     ('Cake'), 
     ('Delivery'), 
-    ('Santization'), 
+    ('Sanitation'), 
     ('Team Management');
 
 INSERT INTO roles (role_name, salary, department_id) VALUES 

@@ -31,3 +31,6 @@ CREATE TABLE employees (
     REFERENCES roles(id)
     ON DELETE SET NULL
 );
+SELECT roles.id, roles.role_name AS title, department.department_name AS department, department.salary AS salary
+FROM roles
+LEFT JOIN departments ON roles.department_id = department.id;

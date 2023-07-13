@@ -35,7 +35,7 @@ function handleQuery(answers) {
             handleResults(err, results);
             });      
     } else if (answers.query === 'View All Roles') { 
-        db.query(`SELECT * FROM roles`, (err, results) => {
+        db.query(`SELECT roles.id, roles.role_name AS title, departments.department_name AS department, roles.salary AS salary FROM roles LEFT JOIN departments ON roles.department_id = departments.id;`, (err, results) => {
             handleResults(err, results);
         });
     } else if (answers.query === 'View All Employees') {
