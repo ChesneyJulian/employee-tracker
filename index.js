@@ -19,8 +19,17 @@ const queryOptions =[
         choices: [
             'View All Departments', 
             'View All Roles', 
-            'View All Employees'
+            'View All Employees',
+            'Add a Department'
         ]
+    }
+];
+
+const addDepartment = [
+    {
+        type: 'input',
+        name: 'department_name',
+        message: 'Enter the name of the department you wish to add:'
     }
 ];
 
@@ -42,6 +51,12 @@ function handleQuery(answers) {
     } else if (answers.query === 'View All Employees') {
         db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.role_name AS title, departments.department_name AS department, roles.salary AS salary, manager.first_name as manager FROM employees employee LEFT JOIN employees manager ON manager.id = employee.manager_id LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id;`, (err, results) => {
             handleResults(err, results);
+        });
+    } else if (answers.query === 'Add a Department') {
+        prompt(addDepartment).then((answers) => {
+            db.query(`INSERT INTO departments SET ?`, answers, (err, results) => {
+                handleResults(err, results);
+            });
         });
     };
 };
