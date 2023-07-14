@@ -24,18 +24,43 @@ const queryOptions = [
       "View All Roles",
       "View All Employees",
       "Add a Department",
+      "Add an Employee",
       "Exit",
     ],
   },
 ];
+// store questions for adding an employee
+const addEmployee = [
+    {
+        type: "input",
+        name: "first_name",
+        message: "Enter the name of the employee you wish to add:",
+    },
+    {
+        type: "input",
+        name: "last_name",
+        message: "Enter the last name of the employee you wish to add:",
+    },
+    {
+        type: "input",
+        name: "role_id",
+        message: "Enter the role id number of the employee you wish to add:",
+    },
+    {
+        type: "input",
+        name: "manager_id",
+        message: "Enter the manager id number of the employee you wish to add:",
+    }
+];
+
 // store options for adding department to be used with prompt
 const addDepartment = [
-  {
-    type: "input",
-    name: "department_name",
-    message: "Enter the name of the department you wish to add:",
-  },
-];
+    {
+        type: "input",
+        name: "department_name",
+        message: "Enter the name of the department you wish to add:",
+    },
+]
 
 // function to initialize and run initial prompt system
 function runCommandLine() {
@@ -77,7 +102,15 @@ function handleQuery(answers) {
         handleResults(err, results);
       });
     });
+  } else if (answers.query === "Add an Employee") {
+    
+    prompt(addEmployee).then((answers) => {
+        db.query(`INSERT INTO employees SET ?`, answers, (err, results) => {
+            handleResults(err, results);
+        });
+    });
   } else if (answers.query === "Exit") {
+    // end prompt sequence if Exit is selected
     process.exit();
   }
 }
