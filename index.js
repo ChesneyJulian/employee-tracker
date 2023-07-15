@@ -24,6 +24,7 @@ const queryOptions = [
       "View All Roles",
       "View All Employees",
       "Add a Department",
+      "Add a Role",
       "Add an Employee",
       "Exit",
     ],
@@ -52,6 +53,24 @@ const addEmployee = [
         message: "Enter the manager id number of the employee you wish to add:",
     }
 ];
+
+const addRole = [
+  {
+    type: "input",
+    name: "role_name",
+    message: "Enter the name of the role you wish to add:"
+  },
+  {
+    type: "input",
+    name: "salary",
+    message: "Enter the salary of the role you wish to add:"
+  },
+  {
+    type: "input",
+    name: "department_id",
+    message: "Enter the department_id of the role you wish to add:"
+  }
+]
 
 // store options for adding department to be used with prompt
 const addDepartment = [
@@ -110,6 +129,14 @@ function handleQuery(answers) {
         });
       break;
     }
+    case "Add a Role": {
+      prompt(addRole).then((answers) => {
+        db.query(`INSERT INTO roles SET ?`, answers, (err, results) => {
+          handleResults(err, results);
+        });
+      });
+      break;
+    }
     case "Add an Employee": {
       // if Add an Employee is selected, run prompt module with questions from addEmployee
       prompt(addEmployee).then((answers) => {
@@ -120,6 +147,9 @@ function handleQuery(answers) {
       });
       break;
     }
+
+
+
     default: {
       // end prompt sequence if Exit is selected (default of no other options selected)
       process.exit();
