@@ -26,6 +26,7 @@ const queryOptions = [
       "Add a Department",
       "Add a Role",
       "Add an Employee",
+      "Update Employee Role",
       "Exit",
     ],
   },
@@ -70,7 +71,7 @@ const addRole = [
     name: "department_id",
     message: "Enter the department_id of the role you wish to add:"
   }
-]
+];
 
 // store options for adding department to be used with prompt
 const addDepartment = [
@@ -79,7 +80,21 @@ const addDepartment = [
         name: "department_name",
         message: "Enter the name of the department you wish to add:",
     },
-]
+];
+
+const updateEmployeeRole = [
+  {
+    type: "input",
+    name: "id",
+    message: "Enter the employee id of the employee you wish to update:",
+  },
+  {
+    type: "input",
+    name: "role_id",
+    message: "Enter the role id you wish to change the employee to:"
+  },
+];
+  
 
 // function to initialize and run initial prompt system
 function runCommandLine() {
@@ -147,9 +162,15 @@ function handleQuery(answers) {
       });
       break;
     }
-
-
-
+    case "Update Employee Role": {
+      prompt(updateEmployeeRole).then((answers) => {
+        console.log(answers);
+        db.query(`UPDATE employees SET role_id = ? WHERE id = ?`, [answers.role_id, answers.id], (err, results) => {
+          handleResults(err, results);
+        });
+      });
+      break;
+    }
     default: {
       // end prompt sequence if Exit is selected (default of no other options selected)
       process.exit();

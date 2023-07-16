@@ -33,4 +33,3 @@ INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES
     ('Abby', 'Bentley', 4, 7),
     ('KeKe', 'Dunn', 6, 8),
     ('Leo', 'Capoldi', 7, 1);
-
