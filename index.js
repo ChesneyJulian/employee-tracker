@@ -55,6 +55,7 @@ const addEmployee = [
     }
 ];
 
+// questions for adding a new role
 const addRole = [
   {
     type: "input",
@@ -82,11 +83,12 @@ const addDepartment = [
     },
 ];
 
+// questions for udpating Employee role
 const updateEmployeeRole = [
   {
     type: "input",
     name: "id",
-    message: "Enter the employee id of the employee you wish to update:",
+    message: "What is the id of the employee you wish to update:",
   },
   {
     type: "input",
@@ -94,14 +96,24 @@ const updateEmployeeRole = [
     message: "Enter the role id you wish to change the employee to:"
   },
 ];
-  
 
 // function to initialize and run initial prompt system
 function runCommandLine() {
   prompt(queryOptions).then((answers) => {
     handleQuery(answers);
   });
-}
+};
+
+// function to handle all results and potential errors
+function handleResults(err, results) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.table(results);
+    runCommandLine();
+  }
+};
+
 // function to handle answers to initial prompt sequence depending on what they selected
 function handleQuery(answers) {
   // implement switch case to determine what actions to run in the case of each option 
@@ -177,15 +189,7 @@ function handleQuery(answers) {
     } 
   };
 }
-// function to handle all results and potential errors
-function handleResults(err, results) {
-  if (err) {
-    console.error(err);
-  } else {
-    console.table(results);
-    runCommandLine();
-  }
-}
+
 
 // initialize app
 runCommandLine();
